@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "444731477225",
+    "firebase_url": "https://timekeeper-d1b7c.firebaseio.com",
+    "project_id": "timekeeper-d1b7c",
+    "storage_bucket": "timekeeper-d1b7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444731477225:android:9cf48b37fab5d3bcb5f478",
+        "android_client_info": {
+          "package_name": "com.example.firebaseflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444731477225-ud0pp6bcuvkg2k7k6dn8t50gra1ta33r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaoder96X2oJckYMJjddTnK8Cd4Ajka6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444731477225-ud0pp6bcuvkg2k7k6dn8t50gra1ta33r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
