@@ -78,11 +78,9 @@ class SplashScreen extends State<SplashPage> {
           }
           if (userId != null) {
             //logged in
-            authStatus = AuthStatus.LOGGED_IN;
             Navigator.popAndPushNamed(context,  HomePage, arguments: {"user_id": userId});
           } else {
             //logged out
-            authStatus = AuthStatus.NOT_LOGGED_IN;
             Navigator.popAndPushNamed(context, Login, arguments: {"auth": auth});
           }
         });
