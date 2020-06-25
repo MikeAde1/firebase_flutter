@@ -1,7 +1,9 @@
-import 'package:firebaseflutter/network/Login.dart';
+import 'file:///C:/Users/micha/Desktop/firebase_flutter/lib/signup.dart';
+import 'package:firebaseflutter/login.dart';
 import 'package:firebaseflutter/network/authentication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +11,8 @@ void main() {
 
 const Splash = "/";
 const HomePage = "/HomePage";
-const Loginpage = "/Login";
+const SignUp = "/signup";
+const Login = "/login";
 AuthStatus authStatus;
 
 enum AuthStatus {
@@ -43,7 +46,10 @@ RouteFactory _route() {
       case HomePage:
         screen = MyHomePage(arguments["user_id"]);
         break;
-      case Loginpage:
+      case SignUp:
+        screen = SignUpPage(arguments["auth"]);
+        break;
+      case Login:
         screen = LoginPage(arguments["auth"]);
         break;
       default:
@@ -73,11 +79,11 @@ class SplashScreen extends State<SplashPage> {
           if (userId != null) {
             //logged in
             authStatus = AuthStatus.LOGGED_IN;
-            Navigator.pushNamed(context, HomePage, arguments: {"user_id": userId});
+            Navigator.popAndPushNamed(context,  HomePage, arguments: {"user_id": userId});
           } else {
             //logged out
             authStatus = AuthStatus.NOT_LOGGED_IN;
-            Navigator.pushNamed(context, Loginpage, arguments: {"auth": auth});
+            Navigator.popAndPushNamed(context, Login, arguments: {"auth": auth});
           }
         });
       });
@@ -87,8 +93,7 @@ class SplashScreen extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
+        body: Center(
           child: Container(
               decoration: BoxDecoration(
                 color: Colors.green,
@@ -102,7 +107,6 @@ class SplashScreen extends State<SplashPage> {
                 ),
               )),
         ),
-      ),
     );
   }
 }
@@ -112,19 +116,43 @@ class MyHomePage extends StatefulWidget {
   final String userId;
   MyHomePage(this.userId);
 
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Auth auth = new Auth();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+          title: Text("Home"),
+          actions: <Widget>[
+            PopupMenuButton<int>(itemBuilder: (context) => [
+              PopupMenuItem(
+                height: 30,
+                value: 1,
+                child: Text("Log out"),
+              ),
+            ],
+              onSelected: (int) {
+                signOut();
+              },
+          )]
       ),
-      body: Center(),
+      body: Center(
+
+      ),
     );
+  }
+
+  signOut() async {
+    try {
+      await auth.signOut();
+    } catch (e) {
+      print(e);
+    } finally {
+      Navigator.of(context).pushNamedAndRemoveUntil(Login, (Route<dynamic> route) => false, arguments: {"auth": auth});
+    }
   }
 }
