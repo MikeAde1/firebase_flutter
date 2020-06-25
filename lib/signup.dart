@@ -4,17 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'authentication.dart';
+import 'network/authentication.dart';
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   final Auth auth;
-  LoginPage(this.auth);
+  SignUpPage(this.auth);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final formKey = new GlobalKey<FormState>();
 
   String email;
@@ -160,6 +160,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget showSecondaryButton() {
     return new FlatButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
       child: new Text(
           isLoginForm ? 'Create an account' : 'Have an account? Sign in',
           style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
@@ -174,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
           child: new RaisedButton(
             elevation: 5.0,
             shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0)
+                borderRadius: BorderRadius.circular(30.0)
             ),
             color: Colors.blue,
             onPressed:  () async {
@@ -183,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                 performLogin();
               }
             },
-            child: new Text(isLoginForm? 'Login' : 'Create account',
+            child: new Text( 'Create account',
                 style: new TextStyle(fontSize: 20.0, color: Colors.white)),
           ),
         ));
@@ -225,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (userId.length > 0 && userId != null) {
         //navigate to next activity
-        Navigator.pushNamed(context, HomePage, arguments: {"user_id": userId});
+        Navigator.popAndPushNamed(context, HomePage, arguments: {"user_id": userId});
       }
     } catch (e) {
       print('Error::: $e');
